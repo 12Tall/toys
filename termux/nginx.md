@@ -10,6 +10,7 @@
 > `/etc/nginx/`:there are some configuration files  
 > root path:`/data/data/com.termux/files
 /usr/share/nginx/html`  
+> after system start or reboot, you should change directory to `/etc/nginx/`, and then execute the directive `nginx`  
 
 
 
