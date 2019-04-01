@@ -3,4 +3,6 @@
 # but should "chmod a+x filename.py" first 
 # comment begin with #
 # comments in ''' '''
-print("hello world")
+print("Enter your name first:")
+name = input();
+print("hello ",name);
