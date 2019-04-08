@@ -1,6 +1,6 @@
 # nginx 
 
-[x]  could not accessed from internet?! 
+- [x]  could not accessed from internet?! 
 
 > should install [hskTurnnel for android] first.  
 
