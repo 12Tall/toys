@@ -1,6 +1,8 @@
+# - [x] [廖雪峰python 教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432090954004980bd351f2cd4cc18c9e6c06d855c498000)
 # https://blog.csdn.net/soonfly/article/details/78361819
 # realization with c:
-# https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html
+# - [x] [language trick in c](https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html)
+# - [x] [analysis of asybcio](https://www.jianshu.com/p/2c5b7e594cf6)
 
 import asyncio,random
 @asyncio.coroutine
