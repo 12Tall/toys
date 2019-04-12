@@ -1,4 +1,6 @@
 # https://blog.csdn.net/soonfly/article/details/78361819
+# realization with c:
+# https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html
 
 import asyncio,random
 @asyncio.coroutine
