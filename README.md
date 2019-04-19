@@ -1,4 +1,17 @@
-# toys
+# Todo   
+- [ ] [Coroutine in c](https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html)  
+- [ ] [状态机](https://www.cnblogs.com/itdef/p/6097969.html)  
+- [ ] 设计模式  
+    - [ ] 状态模式  
+    - [ ] 装饰模式  
+- [ ] [Python--廖雪峰](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
+- [ ] [微分方程](http://open.163.com/special/opencourse/equations.html)  
+- [ ] 加密与解密  
+    - [ ] PE 结构  
+    - [ ] 脱壳  
+  
+
+-----  
 Maybe if I keep believing my dreams will come to life ...
 
 ```
