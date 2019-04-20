@@ -292,9 +292,44 @@ void parser(int c){
     }
 }
 ```
-我们把两个方法都重写了，但其实根本没必要。只需要对应的将`crBegin`,`crReturn(x)`,`crFinish` 替换原先函数的代码就好了。*这里的话似乎只实现了`Python` 里面的`generator` 的功能，离协程还有些距离吧*
+我们把两个方法都重写了，但其实根本没必要。只需要对应的将`crBegin`,`crReturn(x)`,`crFinish` 替换原先函数的代码就好了。*这里的话似乎只实现了`Python` 里面的`generator` 的功能，如果需要赋初值，请参照`parser(int c)`实现，离协程还有些距离吧*  
+> 感觉，如果要实现类似与线程，无阻塞的效果，还需要一个`调度器`来调度定义的`协程`或者说是`generator`，就是：***当一个协程是阻塞状态时，调度器会直接去执行在排队的协程***  
 
+## 代码风格  
+骚操作总是容易闪着腰，所以在公司项目中这样玩很可能会被按在地上摩擦：宏定义中花括号不匹配；不包含子块的`case`；`crReturn` 中内容不完整…… You should be ashamed of yourself.(*感觉理解不了啊，其实作者这里是****欲扬先抑***)  
+当然这里的示例代码并不算长，所以即使使用状态机重写也能看懂，但是随着代码长度的增加，情况就会变得糟糕……  
 
-感觉，如果要实现类似与线程，无阻塞的效果，还需要一个`调度器`来调度定义的`协程`或者说是`generator`，就是：***当一个协程是阻塞状态时，调度器会直接去执行在排队的协程***  
+想一下，一个函数由下面的代码构成
+```c
+case STATE1:
+    if(condition)state = STATE2;else state = STATE3;
+```
+其实对于读者而言，和下面的差别也不大：
+```c
+case STATE1:
+    if(condition)goto LABEL2;else goto LABEL3;
+```
+但是相较于后者，这种破坏了算法布局的结构来说，使用宏定义的协程，还不算是最坏的选择。
 
-未完待续……
+编程规范是为了清晰，将`switch`,`return`,`case` 这些重要的东西隐藏到"不清晰"的`宏` 中，虽然看起来破坏了语法结构，但是却突出了算法结构。(*可能对于初学者，尤其是想快速掌握一些技能的人来说，就不那么好理解*)
+算法的清晰度要比语法的清晰度更重要些。  
+> 其实原文要有意思得多，可以参考[开源中国的翻译](https://www.oschina.net/translate/coroutines-in-c?cmp&p=2)  
+
+## 改良  
+在实际应用中，因为依赖静态变量，所以这种协程用的很少：不支持重入和多线程。理想状态下，我们会需要在不同的上下文中调用同一个函数，对于不同上下文的调用如果还是继续之前的操作就有麻烦了。(**重入问题**)
+可以新增一个指向上下文的指针作为函数的参数来解决这个问题，但是不太漂亮。强迫症表示：很定还有更晚么的解决方案！好吧并没有……
+> 作者这里提到了`Pascal` 中的`with` 还有`C++` 中的类封装，但是很遗憾C 并不支持。想想也明白，因为C 语言中并没有类的概念，所以运行环境/上下文这种东西也没有来由。倒是可以通过结构体来实现`继承`,`多态`的特性，但是放在这里篇幅就太长了。好吧，不想那么多， 反正就是：其实高级语言的特性，有些用C 也是可以实现的  
+
+作者这里提供了一个C语言的头文件[coroutine.h(MIT-Licensed)](https://www.chiark.greenend.org.uk/~sgtatham/coroutine.h)，包含两个宏定义：`scr`，用于可以使用静态变量的情况；`ccr`，支持重入。文档说明包含在头文件中。有问题的话也可以通过[邮箱](mailto:anakin@pobox.com)联系作者.  
+
+⚠：VC6 不支持这种协程的实现方式，默认调试状态下`__LINE__` 这个宏命令并不能被很好的执行，所以在VC6 中需要关掉"Edit and Continue" 选项。(项目设置 —— C/C++ —— General —— Debuginfo ——  只要不选"Program Database for Edit and Continue"就行了)  
+
+*感谢阅读，分享有趣*
+
+## 参考  
+
+- Donald Knuth, The Art of Computer Programming, Volume 1. Addison-Wesley, ISBN 0-201-89683-4. Section 1.4.2 describes coroutines in the "pure" form.
+- http://www.lysator.liu.se/c/duffs-device.html is Tom Duff's own discussion of Duff's device. Note, right at the bottom, a hint that Duff might also have independently invented this coroutine trick or something very like it.  
+**Update, 2005-03-07:** Tom Duff confirms this in a blog comment. The "revolting way to use switches to implement interrupt driven state machines" of which he speaks in his original email is indeed the same trick as I describe here.
+
+- PuTTY is a Win32 Telnet and SSH client. The SSH protocol code contains real-life use of this coroutine trick. As far as I know, this is the worst piece of C hackery ever seen in serious production code.
