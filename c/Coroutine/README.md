@@ -169,3 +169,132 @@ switch(count % 8){
     }while((count-=8)>0);
 }
 ```
+所以我们也可以用`switch` 替换掉`goto`：
+
+```c  
+int function(void){
+    static int i, state = 0;
+    switch(state){
+        case 0:
+        for(i=0;i<10;i++){
+            state = 1;
+            return 1;
+            case 1:
+            // 继续执行的语句
+            ;
+        }
+    }
+}
+// 如果用宏定义替换掉这些花里胡哨的结构就更好了
+#define crBegin static int state = 0;\
+    switch(state){\
+        case 0:
+
+#define crReturn(i,x) do{\
+    state = i;\
+    return x;\
+    case i:;\
+    }while(0)
+// 使用do...while(0)的原因：当crReturn 在if……else…… 中调用时，可以不带花括号
+// 在宏定义时很常用的细节
+// if(true)
+//     do{}while(0);
+#define crFinish }
+
+int function(void){
+    static int i;
+    crBegin;
+    for(i=0;i<10;i++)
+        crReturn(1,i);
+    crFinishi;
+}
+```  
+Perfect，但要注意一些规则：  
+    1. 用`crBegin` 和`crFinish` 包围函数体；  
+    2. 所有需要保留的变量都声明为`static`；  
+    3. 不要将`crReturn` 放在显式的`switch` 语句中；(*显而易见，因为会扰乱达夫设备*)  
+    4. 但是这些都还可以接受，毕竟……要啥自行车啊！  
+然后还要在`crReturn(i,x)` 中指定参数`i`，难受，但是也有方法解决：ANSI C 提供了一个特殊的宏定义`__LINE__`，表示当前行号  
+```c
+// 注意要保证宏命令在一行！调用时crReturn 不要在同一行
+#define crReturn(x) do{\
+    state = __LINE__;\
+    return x;\
+    case __LINE__:;\
+    }while(0);
+```
+
+## 评价  
+用上面提到的宏命令重写`生产者-消费者`，不要多想，用就行了:
+```c
+// 解压器
+int decompressor(void){
+    static int c,len;  // 要保存的环境变量声明在最前
+    crBegin;  // 函数开始
+    while(1){
+        c = getchar();
+        if(c == EOF){
+            break;
+        }
+        if(c == 0xFF){
+            len = getchar();
+            c = getchar();
+            while(len--){
+                crReturn(c);  // 返回并继续
+            }
+        }else{
+            crReturn(c);  // 返回并继续
+        }
+    }
+    crReturn(EOF);  // 返回并继续
+    crFinish;  // 函数结束
+}
+//解析器
+void parser(int c){
+    crBegin;  // 函数体开始
+    while(1){  // 中间用crReturn 返回值
+        if(c == EOF){
+            break;
+        }
+        if(isalpha(c)){
+            do{
+                add_to_token(c);
+                crReturn();
+            }while(isalpha(c));
+            got_token(WORD);
+        }
+        add_to_token(c);
+        got_token(PUNCT);
+        crReturn( );
+    }
+    crFinish;  // 函数体结束
+}
+// 如果展开为c 代码，肯定亲妈都不认识👇
+void parser(int c){
+    static int state = 0;
+    switch(state){
+        case 0:
+        while(1){  // 中间用crReturn 返回值
+            if(c == EOF){
+                break;
+            }
+            if(isalpha(c)){
+                do{
+                    add_to_token(c);
+                    do{state = __LINE__;return ;case __LINE__:;}while(0);  // 要保证在一行
+                }while(isalpha(c));
+                got_token(WORD);
+            }
+            add_to_token(c);
+            got_token(PUNCT);
+            do{state = __LINE__;return ;case __LINE__:;}while(0);  // 要保证在一行
+        }
+    }
+}
+```
+我们把两个方法都重写了，但其实根本没必要。只需要对应的将`crBegin`,`crReturn(x)`,`crFinish` 替换原先函数的代码就好了。*这里的话似乎只实现了`Python` 里面的`generator` 的功能，离协程还有些距离吧*
+
+
+感觉，如果要实现类似与线程，无阻塞的效果，还需要一个`调度器`来调度定义的`协程`或者说是`generator`，就是：***当一个协程是阻塞状态时，调度器会直接去执行在排队的协程***  
+
+未完待续……
