@@ -1,6 +1,7 @@
 # c#
 
 - [x] [System.Security.Cryptography](https://docs.microsoft.com/zh-cn/dotnet/api/system.security.cryptography)：各类加密算法库  
+- [x] [Nuget Doc](https://docs.microsoft.com/en-us/nuget/)：Nuget 说明文档  
 
 -----  
 Maybe if I keep believing my dreams will come to life ...
