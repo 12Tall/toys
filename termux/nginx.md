@@ -1,10 +1,10 @@
-# nginx 
+# nginx  
 
-- [x]  could not accessed from internet?! 
+- [x]  could not accessed from internet?!  
 
 > should install [hskTurnnel for android] first.  
 
-## nginx  
+## nginx config  
 
 > `nginx` must be used to start the service after installed  
 > `/etc/nginx/`:there are some configuration files  
@@ -49,8 +49,10 @@ location /proxy/ {
         # 注意，这种情况下，不能直接访问http://192.168.1.23/proxy/
         # 后面就算是默认的index.html文件也要跟上，否则访问失败！
 }
-```  
+```
+
 看需求来吧，感觉`nginx` 可以单独拉出来了  
+
 ```nginx  
 # 主机配置
 # exp1:
