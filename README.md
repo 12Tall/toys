@@ -2,6 +2,7 @@
 - [x] [Coroutine in c](https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html)  
 - [ ] [状态机](https://www.cnblogs.com/itdef/p/6097969.html)，阅读需要翻译，别犹豫，做就是了  
     - [x] 简单的C 语言[实现](c/state_machine)  
+    - [ ] [NFA 到DFA 的转换](https://blog.csdn.net/u012359618/article/details/42456771)  
     - [ ] [阅读一](https://barrgroup.com/Embedded-Systems/How-To/Coding-State-Machines)  
     - [ ] [阅读二](https://stackoverflow.com/questions/1371460/state-machines-tutorials)  
     - [ ] [阅读三](https://codeandlife.com/2013/10/06/tutorial-state-machines-with-c-callbacks/)  
