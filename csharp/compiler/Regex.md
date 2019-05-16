@@ -1,4 +1,4 @@
-# 正则语言预正则表达式  
+# 正则语言与正则表达式  
 
 [原文地址](https://www.cnblogs.com/Ninputer/archive/2011/06/08/2075714.html) 有个人理解，可能会和原文有出入，关于状态机这一块，可以学习下计算理论，虽然比较晦涩  
 
@@ -71,5 +71,5 @@ string str = "hello world";
     - [x] [SymbolExpression](https://github.com/Ninputer/VBF/blob/master/src/Compilers/Compilers.Scanners/SymbolExpression.cs) 单一字符  
 
 
-作者通过重载运算符可以简化部分操作，我自己写的关于`sql` `condition` 拼接的类，就直接参考本节实现的。  
+作者通过重载运算符可以简化部分操作，我自己写的关于[`sql` `condition` 拼接的类](https://github.com/12Tall/Fo)，就直接参考本节实现的。  
 这样哈，我用`C` 能不能也实现一个呢  
