@@ -67,15 +67,15 @@ Condtion result = a|b;
 !|op_LogicalNot|Not|逻辑非
 <<|op_LeftShift|LeftShift|左移
 <<=|op_LeftShiftAssignment|LeftShift|左移等于
->>|op_RightShift|RightShift|右移
->>=|op_RightShiftAssignment|RightShift|右移等于
+\>\>|op_RightShift|RightShift|右移
+\>\>=|op_RightShiftAssignment|RightShift|右移等于
 (none)|op_UnsignedRightShiftAssignment|RightShift|无符号右移等于
 ==|op_Equality|Equals|关系等于
 !=|op_Inequality|Compare|关系不等于
 <|op_LessThan|Compare|Compare|关系小于
->|op_GreaterThan|Compare|关系大于
+\>|op_GreaterThan|Compare|关系大于
 <=|op_LessThanOrEqual|Compare|关系小于等于
->=|op_GreaterThanOrEqual|Compare|关系大于等于
+\>=|op_GreaterThanOrEqual|Compare|关系大于等于
 =|op_Assign|很长，不贴了|请勿重载此运算符|
 
 感觉就是知识的搬运工~~~
