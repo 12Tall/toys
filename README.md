@@ -17,6 +17,8 @@
 - [ ] 加密与解密  
     - [ ] PE 结构  
     - [ ] 脱壳  
+- [x] [C# 相关](./csharp)  
+    - [x] [运算符重载](./csharp/op_overload.md)
   
 -----  
 Maybe if I keep believing my dreams will come to life ...
