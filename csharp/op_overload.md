@@ -77,5 +77,6 @@ Condtion result = a|b;
 <=|op_LessThanOrEqual|Compare|关系小于等于
 \>=|op_GreaterThanOrEqual|Compare|关系大于等于
 =|op_Assign|很长，不贴了|请勿重载此运算符|
+&|[op_Concatenate](https://social.msdn.microsoft.com/Forums/vstudio/en-US/20d01120-6982-4be2-b851-a953bca1008e/amp-operator-overloading-in-assembly-written-in-c-does-not-work-in-vbnet?forum=csharpgeneral)|Concatenate|连接，在VB里面好用，C# 里面似乎不好用
 
 感觉就是知识的搬运工~~~
