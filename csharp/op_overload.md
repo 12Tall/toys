@@ -31,7 +31,7 @@ Condition a = new Condition(),
 Condtion result = a|b;
 ```
 
-下面是一个运算符`SpecialName` 的清单，因为访问[原网页](https://www.visualbasicplanet.info/framework-programming-2/operator-overload-methods.html) 似乎需要翻墙，本人也不太清楚应该去哪里找准确版本，所以这里将清单直接列举出来了  
+下面是一个运算符`SpecialName` 的清单，~~~因为访问[原网页](https://www.visualbasicplanet.info/framework-programming-2/operator-overload-methods.html) 似乎需要翻墙，本人也不太清楚应该去哪里找准确版本，~~~ 请参考《CLR via C#》 P191。与下表稍有出入，以书为准吧，所以这里将清单直接列举出来了  
 
 ### 名词  
 
