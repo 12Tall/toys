@@ -190,9 +190,9 @@ struct IMAGE_NT_HEADERS{
     /* 0xf2 */
     /* 0xf4 */         DWORD Size;  // 数据块的长度
     /* 0xf6 */
-    /*--------------DOS stub----------------*/
 }
-```
+```  
+
 **重要**  
 `AddressOfEntryPoint`: OEP，程序源入口点  
 `ImageBase`: 默认加载基址  
@@ -200,6 +200,53 @@ struct IMAGE_NT_HEADERS{
 `FileAlignment`: 磁盘当中块对齐数，一般为0x200  
 `SizeOfHeaders`: 所有头部大小 也就是DOS头、文件头以及区块头的总大小，文件主体相对文件其实的偏移  
 `IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES]`：数据目录表，保存了各种表的RVA及大小  
+
+### Section_Header  
+
+这里默认`Section 头` 的地址为00，摘自[看雪学院](https://bbs.pediy.com/thread-247303.htm) 
+
+```c
+struct _IMAGE_SECTION_HEADER{
+    // IMAGE_SIZEOF_SHORT_NAME=8
+    /* 0x00 */ BYTE Name[IMAGE_SIZEOF_SHORT_NAME];  // 节表名称,如“.text”
+    /* 0x08 */ union {
+    /*      */     DWORD PhysicalAddress;  // 物理地址
+    /*      */     DWORD VirtualSize;  // 真实长度
+    /*      */ } Misc;  // 可以使用其中的任何一个，一般是取后一个
+    /* 0x0a */
+    /* 0x0c */ DWORD VirtualAddress;  // 节区的 RVA 地址
+    /* 0x0e */
+    /* 0x10 */ DWORD SizeOfRawData;  // 在文件中对齐后的尺寸
+    /* 0x12 */
+    /* 0x14 */ DWORD PointerToRawData;  // 在文件中的偏移量
+    /* 0x16 */
+    /* 0x18 */ DWORD PointerToRelocations;  // 在OBJ文件中使用，重定位的偏移
+    /* 0x1a */
+    /* 0x1c */ DWORD PointerToLinenumbers;  // 行号表的偏移（供调试使用)
+    /* 0x1e */
+    /* 0x20 */ WORD NumberOfRelocations;  // 在OBJ文件中使用，重定位项数目
+    /* 0x22 */ WORD NumberOfLinenumbers;  // 行号表中行号的数目
+    /* 0x24 */ DWORD Characteristics;  // 节属性如可读，可写，可执行等
+    /* 0x26 */
+}
+```
+
+**重要**  
+- 以一个空`_IMAGE_SECTION_HEADER` 表示结束  
+- 节表的长度比节的实际长度大1  
+- 节表的长度在`FileHeader.NumberOfSections` 中指定  
+
+`Name`: 8 位ASCII 码名  
+`VirtualAddress`: 区块的RVA  
+`SizeOfRawData`: 区块在磁盘文件中的占用大小 200h  
+`PointerToRawData`: 文件中的偏移量  
+`NumberOfRelocations`：在exe文件中无意义，在OBJ 文件中 是本块在重定位表中重定位数目  
+
+### 文件偏移地址与虚拟地址间的转换  
+
+- 先判断`RVA` 落在哪个区段  
+- 减去这个区段的`RVA` 再加上这个区段的`文件偏移量`  
+- `文件中的位置` = `虚拟地址` - `区段RVA` + `区段文件地址`
 
 [参考地址1](https://blog.csdn.net/as14569852/article/details/78120335)  
 [参考地址2](https://blog.csdn.net/ProgrammeringLearner/article/details/52489794)  
