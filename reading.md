@@ -4,4 +4,8 @@
 
 ## 加油呀  
 
-- [天线知识](http://www.antenna-theory.com/m/index.php)
+- [天线知识](http://www.antenna-theory.com/m/index.php)  
+
+## 加油诶  
+
+- [应急响应实战笔记](https://bypass007.github.io/Emergency-Response-Notes/)
