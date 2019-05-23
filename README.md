@@ -1,6 +1,6 @@
 # Todo 2019-05-21  
 
-- [x] [Coroutine in c](https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html)  
+- [x] [c 协程](https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html)  
 - [ ] [状态机](https://www.cnblogs.com/itdef/p/6097969.html)，阅读需要翻译，别犹豫，做就是了  
     - [x] 简单的C 语言[实现](c/state_machine)  
     - [x] [NFA 到DFA 的转换](https://blog.csdn.net/u012359618/article/details/42456771)  
