@@ -6,7 +6,7 @@
     - [x] [NFA 到DFA 的转换](https://blog.csdn.net/u012359618/article/details/42456771)  
     - [x] [阅读五](https://www.geeksforgeeks.org/c-program-to-simulate-nondeterministic-finite-automata-nfa/)  
 - [ ] 设计模式  
-    - [ ] 状态模式  
+    - [x] [状态模式](https://www.cnblogs.com/stonefeng/p/5679638.html): 通过封装对类进行扩展，类似于套壳  
     - [ ] 装饰模式  
 - [ ] [Python--廖雪峰](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
 - [ ] [微分方程](http://open.163.com/special/opencourse/equations.html)  
