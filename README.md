@@ -1,21 +1,6 @@
-# Todo 2019-05-21  
+# Todo
 
-- [x] [c 协程](https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html)  
-- [ ] [状态机](https://www.cnblogs.com/itdef/p/6097969.html)，阅读需要翻译，别犹豫，做就是了  
-    - [x] 简单的C 语言[实现](c/state_machine)  
-    - [x] [NFA 到DFA 的转换](https://blog.csdn.net/u012359618/article/details/42456771)  
-    - [x] [阅读五](https://www.geeksforgeeks.org/c-program-to-simulate-nondeterministic-finite-automata-nfa/)  
-- [ ] 设计模式  
-    - [x] [状态模式](https://www.cnblogs.com/stonefeng/p/5679638.html): 通过封装对类进行扩展，类似于套壳  
-    - [x] 装饰模式  
-- [ ] [Python--廖雪峰](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
-- [ ] [微分方程](http://open.163.com/special/opencourse/equations.html)  
-- [ ] 加密与解密  
-    - [x] PE 结构  
-        - [ ] 导入/导出表  
-    - [ ] 脱壳  
-- [x] [C# 相关](./csharp)  
-    - [x] [运算符重载](./csharp/op_overload.md)
+- [ ] [C语言网络编程](https://www.cnblogs.com/zhanggaofeng/category/915990.html)  
   
 -----  
 Maybe if I keep believing my dreams will come to life ...
