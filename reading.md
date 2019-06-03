@@ -8,4 +8,8 @@
 
 ## 加油诶  
 
-- [应急响应实战笔记](https://bypass007.github.io/Emergency-Response-Notes/)
+- [应急响应实战笔记](https://bypass007.github.io/Emergency-Response-Notes/)  
+
+## 加油撒  
+
+- [ ] [正则表达式实现代码高亮](https://www.jb51.net/article/50089.htm)

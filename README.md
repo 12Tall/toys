@@ -7,12 +7,12 @@
     - [x] [阅读五](https://www.geeksforgeeks.org/c-program-to-simulate-nondeterministic-finite-automata-nfa/)  
 - [ ] 设计模式  
     - [x] [状态模式](https://www.cnblogs.com/stonefeng/p/5679638.html): 通过封装对类进行扩展，类似于套壳  
-    - [ ] 装饰模式  
+    - [x] 装饰模式  
 - [ ] [Python--廖雪峰](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)  
 - [ ] [微分方程](http://open.163.com/special/opencourse/equations.html)  
 - [ ] 加密与解密  
     - [x] PE 结构  
-        - [x] 导入/导出表  
+        - [ ] 导入/导出表  
     - [ ] 脱壳  
 - [x] [C# 相关](./csharp)  
     - [x] [运算符重载](./csharp/op_overload.md)

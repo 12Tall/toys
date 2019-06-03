@@ -26,4 +26,4 @@ from kamene.all import *
 # print(dir(kamene.all))
 mac = getmacbyip("192.168.1.1")
 print(mac)
-```
+```  
