@@ -3,6 +3,7 @@
 ## 加油  
 
 - [28岁裸辞转行前端是怎样的一种体验](https://segmentfault.com/a/1190000019105621)  
+- [付小黑(Gogs)的博客](http://fuxiaohei.me)  
 
 ## 加油呀  
 
