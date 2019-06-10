@@ -28,50 +28,51 @@
 
 之所以这样写，是因为this 实在是太像执行环境(`context`)了。`this` 对象存在于函数中，对于`this` 的指向，一般有以下规律  
 
-- 谁开发谁保护：  
+### 谁开发谁保护：  
 
-> - 对象调用自身的方法，`this` 指向对象本身。  
->
-> ```javascript
-> var obj = {
->     name:"12tall",
->     sayHi:function(){
->         console.log("hi! I'am " + this.name);
->     }
-> }
-> obj.sayHi();  // hi! I'am 12tall
-> ```
->
-> - 直接调用，`this` 指向最外层执行环境。浏览器中是`window`，严格模式下是`undefined`  
->
-> ```javascript
-> var name = "12tall";
-> var sayHi = function(){
->     console.log("hi! I'am " + this.name);
-> };
-> obj.sayHi();  // hi! I'am 12tall
-> ```
->
-> - 对象的方法如果被`直接调用`，`this` 也是指向最外层执行环境。  
->
-> ```javascript
-> // 注意不能是严格模式  
-> var name = "tall12";
-> var obj = {
->     name:"12tall",
->     sayHi:function(){
->         console.log("hi! I'am " + this.name);
->     }
-> }
-> var sayHi = obj.sayHi;
-> sayHi();  // hi! I'am tall12
-> ```
->
-> - `构造器` 比较特殊，通过`new` 运算符调用，`this` 一般指向生成的对象并且返回`this`(除非显式声明不返回`this`) 
->
-> - `call(obj,...)`,`apply(obj,[])` 可以人为指定执行环境。第一个参数是`运行环境`  
+- 对象调用自身的方法，`this` 指向对象本身。  
+
+```javascript
+var obj = {
+    name:"12tall",
+    sayHi:function(){
+        console.log("hi! I'am " + this.name);
+    }
+}
+obj.sayHi();  // hi! I'am 12tall
+```
+
+- 直接调用，`this` 指向最外层执行环境。浏览器中是`window`，严格模式下是`undefined`  
+
+```javascript
+var name = "12tall";
+var sayHi = function(){
+    console.log("hi! I'am " + this.name);
+};
+sayHi();  // hi! I'am 12tall
+```  
+
+> 对象的方法如果被`直接调用`，`this` 也是指向最外层执行环境。  
+
+```javascript
+// 注意不能是严格模式  
+var name = "tall12";
+var obj = {
+    name:"12tall",
+    sayHi:function(){
+        console.log("hi! I'am " + this.name);
+    }
+}
+var sayHi = obj.sayHi;
+sayHi();  // hi! I'am tall12
+```
+
+- `构造器` 比较特殊，通过`new` 运算符调用，`this` 一般指向生成的对象并且返回`this`(除非显式声明不返回`this`)  
+
+- `call(obj,...)`,`apply(obj,[])` 可以人为指定执行环境。第一个参数是`运行环境`  
+
 > `call` 是`apply` 的语法糖  
 > `call` 效率低一些  
 > `call` 是可变参数，`apply` 第二个参数是一个数组。二者几乎没什么区别  
->
-> - 关于`回调函数`，无论什么样的函数、在哪里调用，都可以参考以上分类  
+
+- 关于`回调函数`，无论什么样的函数、在哪里调用，都可以参考以上分类  
