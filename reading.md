@@ -12,6 +12,9 @@
 ## 加油诶  
 
 - [应急响应实战笔记](https://bypass007.github.io/Emergency-Response-Notes/)  
+- [HOOK学习笔记与心得](https://bbs.pediy.com/thread-193729.htm)  
+- [系统消息与自定义钩子（Hook）使用](https://www.cnblogs.com/17bdw/p/6533065.html)  
+- [WINDOWS上的 API HOOK 技术](https://segmentfault.com/a/1190000012993626)
 
 ## 加油撒  
 
