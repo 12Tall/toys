@@ -12,10 +12,7 @@
 ## 加油诶  
 
 - [应急响应实战笔记](https://bypass007.github.io/Emergency-Response-Notes/)  
-- [HOOK学习笔记与心得](https://bbs.pediy.com/thread-193729.htm)  
-- [系统消息与自定义钩子（Hook）使用](https://www.cnblogs.com/17bdw/p/6533065.html)  
-- [WINDOWS上的 API HOOK 技术](https://segmentfault.com/a/1190000012993626)
-- [★Widows 键盘钩子](https://www.cnblogs.com/lyhero11/p/4514980.html)
+- [C#实现驱动级模拟按键](https://blog.csdn.net/edcvf3/article/details/23091377)[keybd_event](https://wenku.baidu.com/view/f6c5e6cba1c7aa00b52acbba.html)
 
 ## 加油撒  
 
