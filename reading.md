@@ -4,6 +4,7 @@
 
 - [28岁裸辞转行前端是怎样的一种体验](https://segmentfault.com/a/1190000019105621)  
 - [付小黑(Gogs)的博客](http://fuxiaohei.me)  
+- 好看的图[用最干净的眸子看世界](http://blog.sina.com.cn/s/blog_b6ea5d580102v6c5.html)
 
 ## 加油呀  
 
