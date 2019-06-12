@@ -1,0 +1,58 @@
+//  rc -r pe.rc
+// #include <windows.h>
+#include <resource.h>
+
+// icon main 
+#define ICO_MAIN 1000
+
+// dialog main 
+#define DLG_MAIN 1000
+
+// id of controller
+#define IDC_INFO 1001
+
+// id of menu
+#define IDM_MAIN 2000
+#define IDM_OPEN 2001
+#define IDM_EXIT 2002
+
+#define IDM_1 4000
+#define IDM_2 4001
+#define IDM_3 4002
+#define IDM_4 4003
+
+ICO_MAIN ICON "main.ico"
+
+DLG_MAIN DIALOG 50,50,544,399
+// DS_ dialog style 
+// WS_ window style
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "PE Info by:12tall"
+
+MENU IDM_MAIN
+FONT 9, "宋体"
+BEGIN
+    CONTROL "", IDC_INFO, "RichEdit20A", 196  | ES_WANTRETURN | WS_CHILD | ES_READONLY
+               | WS_VISIBLE |WS_BORDER | WS_VSCROLL | WS_TABSTOP,0,0,540,396
+END
+
+// 菜单栏描述
+IDM_MAIN menu discardable
+BEGIN
+    POPUP "file(&F)"
+    BEGIN
+        menuitem "open(&O)...", IDM_OPEN
+        menuitem separator
+        menuitem "exit(&x)", IDM_EXIT
+    END
+
+    POPUP "view"
+    BEGIN
+        // 必须要指定(&*) 不然会报错
+        menuitem "source(&S)", IDM_1
+        menuitem "transp(&T)", IDM_2
+        menuitem separator
+        menuitem "scale(&s)", IDM_3
+        menuitem "width(&W)", IDM_4
+    END
+END

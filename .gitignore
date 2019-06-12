@@ -1,3 +1,6 @@
+#$ git config –get core.ignorecase  查看是否忽略大小写
+#$ git config core.ignorecase true/false  设置是个否忽略大小写
+
 # Prerequisites
 *.d
 
@@ -56,4 +59,4 @@ dkms.conf
 *.pyc
 *.ipch
 *.bin
- 
+*.res
