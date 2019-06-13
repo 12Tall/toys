@@ -9,6 +9,7 @@
 ## 加油呀  
 
 - [天线知识](http://www.antenna-theory.com/m/index.php)  
+- [smtp 格式](https://help.aliyun.com/knowledge_detail/51584.html)  
 
 ## 加油诶  
 
