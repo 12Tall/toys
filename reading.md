@@ -10,6 +10,7 @@
 
 - [天线知识](http://www.antenna-theory.com/m/index.php)  
 - [smtp 格式](https://help.aliyun.com/knowledge_detail/51584.html)  
+- [曹广福的博客(数学)](http://blog.sciencenet.cn/u/gfcao)  
 
 ## 加油诶  
 
