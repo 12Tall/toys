@@ -1,4 +1,7 @@
-# 一些比较好的资料
+# 一些比较好的资料  
+
+- [500 lines or less](http://aosabook.org/en/500L/) 挺好的python 书  
+
 
 ## 加油  
 
