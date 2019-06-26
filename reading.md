@@ -1,6 +1,8 @@
 # 一些比较好的资料  
 
 - [500 lines or less](http://aosabook.org/en/500L/) 挺好的python 书  
+- [Python 实现解释器](https://ruslanspivak.com/lsbasi-part1/) 画风清奇  
+- [c 语言实现正则表达式引擎](https://blog.csdn.net/weixin_36719607/article/details/79427220) 排版不好，但是有源码  
 
 
 ## 加油  
