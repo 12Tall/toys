@@ -27,4 +27,5 @@
 - [ ] [正则表达式实现代码高亮](https://www.jb51.net/article/50089.htm)  
 - [ ] [当我们在谈论高并发的时候究竟在谈什么?](https://segmentfault.com/a/1190000019360335)  
 - [ ] [Css 3自适应布局](https://www.jianshu.com/p/8d7c8c373148)  
-- [ ] [cavans 绘图](http://blog.sina.com.cn/s/articlelist_5657730194_12_1.html) 很基础的教程，应当先看  
+- [ ] [canvas 绘图](http://blog.sina.com.cn/s/articlelist_5657730194_12_1.html)  
+- [ ] [canvas 教程](https://www.runoob.com/w3cnote/html5-canvas-intro.html) 菜鸟教程
