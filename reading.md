@@ -4,7 +4,6 @@
 - [Python 实现解释器](https://ruslanspivak.com/lsbasi-part1/) 画风清奇  
 - [c 语言实现正则表达式引擎](https://blog.csdn.net/weixin_36719607/article/details/79427220) 排版不好，但是有源码  
 
-
 ## 加油  
 
 - [28岁裸辞转行前端是怎样的一种体验](https://segmentfault.com/a/1190000019105621)  
@@ -20,7 +19,9 @@
 ## 加油诶  
 
 - [应急响应实战笔记](https://bypass007.github.io/Emergency-Response-Notes/)  
-- [C#实现驱动级模拟按键](https://blog.csdn.net/edcvf3/article/details/23091377)[keybd_event](https://wenku.baidu.com/view/f6c5e6cba1c7aa00b52acbba.html)
+- [C#实现驱动级模拟按键](https://blog.csdn.net/edcvf3/article/details/23091377)[keybd_event](https://wenku.baidu.com/view/f6c5e6cba1c7aa00b52acbba.html)  
+- [Shadowsocks 源码分析](https://loggerhead.me/posts/shadowsocks-yuan-ma-fen-xi-tcp-dai-li.html)  
+- [你也能写个 Shadowsocks](https://cloud.tencent.com/developer/article/1016003)
 
 ## 加油撒  
 
