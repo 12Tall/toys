@@ -17,7 +17,8 @@
 - [天线知识](http://www.antenna-theory.com/m/index.php)  
 - [smtp 格式](https://help.aliyun.com/knowledge_detail/51584.html)  
 - [曹广福的博客(数学)](http://blog.sciencenet.cn/u/gfcao)  
-- [FFMPEG 作者的博客](https://bellard.org/)：大神呐
+- [FFMPEG 作者的博客](https://bellard.org/)：大神呐  
+- [Miskcoo](http://blog.miskcoo.com) 关于数学与计算机方面的博客  
 
 ## 加油诶  
 
@@ -32,4 +33,4 @@
 - [ ] [当我们在谈论高并发的时候究竟在谈什么?](https://segmentfault.com/a/1190000019360335)  
 - [ ] [Css 3自适应布局](https://www.jianshu.com/p/8d7c8c373148)  
 - [ ] [canvas 绘图](http://blog.sina.com.cn/s/articlelist_5657730194_12_1.html)  
-- [ ] [canvas 教程](https://www.runoob.com/w3cnote/html5-canvas-intro.html) 菜鸟教程
+- [ ] [canvas 教程](https://www.runoob.com/w3cnote/html5-canvas-intro.html) 菜鸟教程  
