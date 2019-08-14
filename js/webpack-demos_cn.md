@@ -1,6 +1,6 @@
 # 阮一峰《webpack-demos.md》 的翻译  
 
-本仓库由一系列`webpack` 的简单demo 组成。  
+[本仓库](https://github.com/ruanyf/webpack-demos)由一系列`webpack` 的简单demo 组成。  
 这些demo 专门为学习目的而写，具有简单、清晰的风格。跟随这些demo 可以轻松的入门`webpack`这个强大的工具。  
 
 ## 如何使用本仓库  
@@ -310,7 +310,7 @@ module.exports = {
 };
 ```
 
-注意，这里必须要用两个加载器。`css-loader` 用于读取css 文件，[`style-loader`](https://www.npmjs.com/package/style-loader)会向html 插入`<stylr>` 标签。*译注：译者测试好像已经不会在html 页面插入样式标签了，但不影响最终结果*  
+注意，这里必须要用两个加载器。`css-loader` 用于读取css 文件，[`style-loader`](https://www.npmjs.com/package/style-loader)会向html 插入`<style>` 标签。*译注：译者测试好像已经不会在html 页面插入样式标签了，但不影响最终结果*  
 然后启动服务。  
 
 ```bash
