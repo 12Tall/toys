@@ -335,6 +335,66 @@ $ npm run dev
 
 ## 图片加载器 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo05))  
 
+`webpack` 也可以在js 文件中包含图片文件。  
+
+main.js  
+
+```js
+var img1 = document.createElement("img");
+img1.src = require("./small.png");
+document.body.appendChild(img1);
+
+var img2 = document.createElement("img");
+img2.src = require("./big.png");
+document.body.appendChild(img2);
+```  
+
+index.html  
+
+```html
+<html>
+  <body>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
+</html>
+```  
+
+webpack.config.js  
+
+```js
+// 需要 npm i url-loader --dev-save
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  module: {
+    rules:[
+      {
+        test: /\.(png|jpg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      }
+    ]
+  }
+};
+```
+
+[url-loader](https://www.npmjs.com/package/url-loader) 可以将图片文件转换成`<img/>` 标签，大小小于`8192kb` 时直接转化成`base64` 编码，否则插入正常的url。  
+
+启动npm 服务后，大图片和小图片分别被加载为以下格式。  
+
+```html
+<img src="data:image/png;base64,iVBOR...uQmCC">
+<img src="4853ca667a2b8b8844eb2693ac1b2578.png">
+```
+
 ## CSS 模块 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo06))  
 
 ## UglifyJs 插件 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo07))  
