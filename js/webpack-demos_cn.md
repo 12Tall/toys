@@ -397,6 +397,110 @@ module.exports = {
 
 ## CSS 模块 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo06))  
 
+`css-loader?module`(查询参数模块)启用[`CSS 模块`](https://github.com/css-modules/css-modules)。为js 模块中的css 提供局部的作用域？我们也可以使用`:global(selector)`来将其关闭([详情](https://css-modules.github.io/webpack-demo/))  
+
+*译注：其实上面这一段几乎完全没有看懂，但是从代码理解：react 中的局部样式与全局样式的打包*
+
+index.html
+
+```html
+<html>
+<body>
+  <h1 class="h1">Hello World</h1>
+  <h2 class="h2">Hello Webpack</h2>
+  <div id="example"></div>
+  <script src="./bundle.js"></script>
+</body>
+</html>
+```
+
+app.css
+
+```css
+/* 局部样式 */
+.h1 {
+  color:red;
+}
+
+/* 全局样式 */
+:global(.h2) {
+  color: blue;
+}
+```
+
+main.jsx
+
+```jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+var style = require('./app.css');
+
+ReactDOM.render(
+  <div>
+    <h1 className={style.h1}>Hello World</h1>
+    <h2 className="h2">Hello Webpack</h2>
+  </div>,
+  document.getElementById('example')
+);
+```
+
+webpack.config.js
+
+```js
+module.exports = {
+  entry: './main.jsx',
+  output: {
+    filename: 'bundle.js'
+  },
+  module: {
+    rules:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            // Error: Couldn't find preset "es2015" relative to directory
+            // npm install --save-dev babel-preset-es2015
+            // npm install --save-dev babel-preset-react
+            presets: ['es2015', 'react']
+          }
+        }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+             loader: 'css-loader',
+             options: {
+               modules: true
+             }
+          }
+        ]
+      }
+    ]
+  }
+};
+```
+
+启动服务  
+
+```bash
+#
+$ cd demo06
+$ npm run dev
+# 这里可能会出错
+# 需要添加PATH 环境变量：C:\windows\system32
+# https://stackoverflow.com/questions/28624686/get-spawn-cmd-enoent-when-try-to-build-cordova-application-event-js85
+```
+
+访问<http://127.0.0.1:8080/>，你会发现只有`h1`标签是红色的，因为它的样式是局部样式，两个`h2`都是蓝色的，因为它的样式是全局的。  
+
+*译注：解决Error 也是蛮有成就感的*
+
 ## UglifyJs 插件 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo07))  
 
 ## HTML 插件与OpenBrowser 插件 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo08))  
