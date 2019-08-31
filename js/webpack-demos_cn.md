@@ -498,14 +498,163 @@ $ npm run dev
 ```
 
 访问<http://127.0.0.1:8080/>，你会发现只有`h1`标签是红色的，因为它的样式是局部样式，两个`h2`都是蓝色的，因为它的样式是全局的。  
-
-*译注：解决Error 也是蛮有成就感的*
+*译注：解决Error 也是蛮有成就感的*  
 
 ## UglifyJs 插件 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo07))  
 
+Webpack 通过插件系统来扩展功能，例如[UglifyJs Plugin](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/) 就可以压缩生成的js 代码(bundle.js)。  
+
+main.js  
+
+```js
+var longVariableName = 'Hello';
+longVariableName += ' World';
+document.write('<h1>' + longVariableName + '</h1>');
+```
+
+index.html  
+
+```html
+<html>
+<body>
+  <script src="bundle.js"></script>
+</body>
+</html>
+```
+
+webpack.config.js
+
+```js
+var webpack = require('webpack');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new UglifyJsPlugin()
+  ]
+};
+```
+
+在启动服务之后，main.js 的内容在bundle.js 内会被压缩成下面的样子  
+
+```js
+var o="Hello";o+=" World",document.write("<h1>"+o+"</h1>")
+```
+
 ## HTML 插件与OpenBrowser 插件 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo08))  
 
+通过此例，我们可以嘘唏如何加载第三方插件  
+
+[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) 会为我们自动创建`index.html`，同时[open-browser-webpack-plugin](https://github.com/baldore/open-browser-webpack-plugin) 在webpack 启动时会自动打开一个浏览器标签  
+
+main.js  
+
+```js
+document.write('<h1>Hello World</h1>');
+```
+
+webpack.config.js
+
+```js
+var HtmlwebpackPlugin = require('html-webpack-plugin');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new HtmlwebpackPlugin({
+      title: 'Webpack-demos',
+      filename: 'index.html'
+    }),
+    new OpenBrowserPlugin({
+      url: 'http://localhost:8080'
+    })
+  ]
+};
+```
+
+启动服务  
+
+```bash
+#
+$ cd demo08
+$ npm run dev
+```
+
+现在我们就无需手写index.html 了，webpack 也会自动帮我们打开浏览器标签  
+
 ## 环境标识 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo09))  
+
+通过环境标识符，我们可以让某些代码只在开发时运行  
+*译注：这个似乎是nodejs 自带的功能，非webpack 独有*
+
+main.js
+
+```js
+document.write('<h1>Hello World</h1>');
+
+if (__DEV__) {
+  document.write(new Date());
+}
+```
+
+index.html
+
+```html
+<html>
+<body>
+  <script src="bundle.js"></script>
+</body>
+</html>
+```  
+
+webpack.config.js
+
+```js
+var webpack = require('webpack');
+
+var devFlagPlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+});
+
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [devFlagPlugin]
+};
+```  
+
+将环境变量传入webpack：打开package.json，通过script 属性就可以实现  
+
+```js
+// package.json
+{
+  // ...
+  "scripts": {
+    "dev": "cross-env DEBUG=true webpack-dev-server --open",
+  },
+  // ...
+}
+// 注：正式的package.json 中不要带注释
+// 也不要添加无用的逗号
+```  
+
+启动服务  
+
+```bash
+#
+$ cd demo09
+$ npm run dev
+```  
 
 ## 代码拆分 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo10))  
 
