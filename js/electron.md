@@ -31,3 +31,10 @@ node_modules/.bin/electron-rebuild
 
 cnpm 安装的包可能不能通过编译  
 
+```bash
+> electron -a && electron -v
+57         # <= this is --abi
+v1.8.4     # <= this is --target
+
+npm rebuild --runtime=electron --target=1.8.4 --disturl=https://atom.io/download/atom-shell --abi=57
+```
