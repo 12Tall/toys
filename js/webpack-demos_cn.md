@@ -658,7 +658,79 @@ $ npm run dev
 
 ## 代码拆分 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo10))  
 
-## 利用Babel 加载器进行代码拆分 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo11))  
+对于大型的webapp，所有代码放在一个js 文件里面效率过低。webpack 允许将js 源码拆分为若干代码块，按需加载  
+
+webpack 利用[`require.ensure`](http://webpack.github.io/docs/code-splitting.html) 方法定义拆分节点  
+
+```js
+// main.js
+require.ensure(['./a'], function (require) {
+  var content = require('./a');
+  document.open();
+  document.write('<h1>' + content + '</h1>');
+  document.close();
+});
+```
+
+`require.ensure` 告知webpack `./a/js` 应当从bundle.js 中拆分成独立的代码块  
+
+```js
+// a.js
+module.exports = 'Hello World';
+```
+
+现在由webpack 负责管理依赖、输出等各种东西，我们无需再关心`index.html` 和`webpack.config.js` 中的多余代码  
+
+```html
+<html>
+  <body>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+webpack.config.js
+
+```js
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  }
+};
+```
+
+启动服务  
+
+```bash
+#
+$ cd demo10
+$ npm run dev
+```  
+
+webpack 会将main.js 和a.js 构建为两个目标文件bundle.js 和0.bundle.js。在需要时加载0.bundle.js，但是我们感觉不出有任何区别  
+
+## 利用Bundle 加载器进行代码拆分 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo11))  
+
+代码拆分的另一种办法就是使用[bundle-loader](https://www.npmjs.com/package/bundle-loader)  
+
+```js
+// main.js
+
+// Now a.js is requested, it will be bundled into another file
+var load = require('bundle-loader!./a.js');
+
+// To wait until a.js is available (and get the exports)
+//  you need to async wait for it.
+load(function(file) {
+  document.open();
+  document.write('<h1>' + file + '</h1>');
+  document.close();
+});
+```
+
+`require('bundle-loader!./a.js')` 告知webpack 从额外的代码块加载a.js  
+webpack 会将main.js构建为bundle.js，a.js 构建为0.bundule.js  
 
 ## 公共代码块 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo12))  
 
