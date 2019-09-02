@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>粘贴文件</title>
+    <title>文件粘贴测试</title>
 </head>
+
 <body contenteditable="true">
-<button id="btn">截图</button>
-<canvas id="img"></canvas>
-<video id="video" autoplay="true"></video>
 
 
-<script>
-    var video = document.getElementById("video"),
-        canvas = document.getElementById("img"),
-        btn = document.getElementById("btn");
+    <script>
 
-    btn.addEventListener("click",function (ev) {
-        canvas.width=video.videoWidth;
-        canvas.height=video.videoHeight;
-        canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
-    });
-    var constraints={
-        audio:false,
-        video:true
-    }
+        // demo 程序将粘贴事件绑定到 document 上
+        document.addEventListener("paste", function (e) {
+            var cbd = e.clipboardData;
+            var ua = window.navigator.userAgent;
 
-    function handleSuccess(stream){
-        window.stream=stream;
-        video.srcObject=stream;
-    }
+            // 如果是 Safari 直接 return
+            if (!(e.clipboardData && e.clipboardData.items)) {
+                return;
+            }
 
-    function handleError(error){
-        console.log('navigator.getUserMedia error: ',error);
-    }
+            // Mac平台下Chrome49版本以下 复制Finder中的文件的Bug Hack掉
+            if (cbd.items && cbd.items.length === 2 && cbd.items[0].kind === "string" && cbd.items[1].kind === "file" &&
+                cbd.types && cbd.types.length === 2 && cbd.types[0] === "text/plain" && cbd.types[1] === "Files" &&
+                ua.match(/Macintosh/i) && Number(ua.match(/Chrome\/(\d{2})/i)[1]) < 49) {
+                return;
+            }
 
-    navigator.mediaDevices.getDisplayMedia(constraints).then(handleSuccess).catch(handleError);
-</script>
+            for (var i = 0; i < cbd.items.length; i++) {
+                var item = cbd.items[i];
+                item.getAsString(function (s) {
+                    console.log(s);
+                });
+                if (item.kind == "file") {
+                    var blob = item.getAsFile();
+                    if (blob.size === 0) {
+                        return;
+                    }
+                    // blob 就是从剪切板获得的文件 可以进行上传或其他操作
+                }
+            }
+        }, false);
+    </script>
 </body>
+
 </html>
