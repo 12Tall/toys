@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>粘贴文件</title>
+</head>
+<body contenteditable="true">
+<button id="btn">截图</button>
+<canvas id="img"></canvas>
+<video id="video" autoplay="true"></video>
+
+
+<script>
+    var video = document.getElementById("video"),
+        canvas = document.getElementById("img"),
+        btn = document.getElementById("btn");
+
+    btn.addEventListener("click",function (ev) {
+        canvas.width=video.videoWidth;
+        canvas.height=video.videoHeight;
+        canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
+    });
+    var constraints={
+        audio:false,
+        video:true
+    }
+
+    function handleSuccess(stream){
+        window.stream=stream;
+        video.srcObject=stream;
+    }
+
+    function handleError(error){
+        console.log('navigator.getUserMedia error: ',error);
+    }
+
+    navigator.mediaDevices.getDisplayMedia(constraints).then(handleSuccess).catch(handleError);
+</script>
+</body>
+</html>
