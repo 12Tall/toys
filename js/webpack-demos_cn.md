@@ -734,8 +734,388 @@ webpack 会将main.js构建为bundle.js，a.js 构建为0.bundule.js
 
 ## 公共代码块 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo12))  
 
+当多个脚本拥有公共代码块的时候，webpack 可以通过[CommonsChunkPlugin](https://webpack.js.org/plugins/commons-chunk-plugin/) 提取公共部分到单独的文件。有利于浏览器缓存与节省带宽。  
+
+```js
+// main1.jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+ReactDOM.render(
+  <h1>Hello World</h1>,
+  document.getElementById('a')
+);
+
+// main2.jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+ReactDOM.render(
+  <h2>Hello Webpack</h2>,
+  document.getElementById('b')
+);
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <script src="commons.js"></script>
+    <script src="bundle1.js"></script>
+    <script src="bundle2.js"></script>
+  </body>
+</html>
+```
+
+上文中，common.js 就是main1.jsx 和main2.jsx 的公共部分，包含了react 和react-dom。  
+
+webpack.config.js  
+
+```js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    bundle1: './main1.jsx',
+    bundle2: './main2.jsx'
+  },
+  output: {
+    filename: '[name].js'
+  },
+  module: {
+    rules:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react']
+          }
+        }
+      },
+    ]
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "commons",
+      // (the commons chunk name)
+
+      filename: "commons.js",
+      // (the filename of the commons chunk)
+    })
+  ]
+}
+```
+
 ## 自有代码块 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo13))  
+
+通过`CommonsChunkPlugin` 我们还可以抽取出自己的代码块  
+
+main.js  
+
+```js
+var $ = require('jquery');
+$('h1').text('Hello World');
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <h1></h1>
+    <script src="vendor.js"></script>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+webpack.config.js  
+
+```js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    app: './main.js',
+    vendor: ['jquery'],
+  },
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js'
+    })
+  ]
+};
+```
+
+上面的代码中，`entry.vendor: ['jquery']` 表示jQuery 需要被包含在公共代码块`vendor.js` 中  
+
+如果需要将某个模块的变量，作为全局变量使用，并且不需要require。我们可以使用[ProvidePlugin](https://webpack.js.org/plugins/provide-plugin/)来自动载入模块。  
+
+```js
+// main.js
+$('h1').text('Hello World');
+
+
+// webpack.config.js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    app: './main.js'
+  },
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+  ]
+};
+```  
+
+当然，我们需要在全局加载jquery.js
 
 ## 全局公开变量 ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo14))  
 
+如果需要使用全局变量，并且不想再webpack 中包含他们，我们可以在`webpack.config.js`启用[`externals`](https://webpack.js.org/configuration/externals/) 字段。
+
+例如，我们有一个data.js 文件  
+
+```js
+// data.js
+var data = 'Hello World';
+```  
+
+index.html
+
+```html
+<html>
+  <body>
+    <script src="data.js"></script>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+注意：webpack 只会打包bundle.js 而不会打包data.js。我们需要将data 作为全局变量暴露  
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './main.jsx',
+  output: {
+    filename: 'bundle.js'
+  },
+  module: {
+    rules:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react']
+          }
+        }
+      },
+    ]
+  },
+  externals: {
+    // require('data') is external and available
+    //  on the global var data
+    'data': 'data'
+  }
+};
+```
+
+现在我们可以将data 当作模块变量引入，但其实他已经是全局变量了  
+
+```js
+// main.jsx
+var data = require('data');
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+ReactDOM.render(
+  <h1>{data}</h1>,
+  document.body
+);
+```  
+
+我们也可以将react 和react-dom 作为全局变量引入，此举将会大幅减少构建时间和输出文件大小  
+
 ## React 路由] ([源码](https://github.com/ruanyf/webpack-demos/tree/master/demo15))  
+
+此例使用webpack 构建[React-router](https://github.com/rackt/react-router/blob/0.13.x/docs/guides/overview.md)官方示例  
+
+一个带有仪表盘、收件箱和日历的小程序  
+
+```txt
++---------------------------------------------------------+
+| +---------+ +-------+ +--------+                        |
+| |Dashboard| | Inbox | |Calendar|      Logged in as Jane |
+| +---------+ +-------+ +--------+                        |
++---------------------------------------------------------+
+|                                                         |
+|                        Dashboard                        |
+|                                                         |
+|                                                         |
+|   +---------------------+    +----------------------+   |
+|   |                     |    |                      |   |
+|   | +              +    |    +--------->            |   |
+|   | |              |    |    |                      |   |
+|   | |   +          |    |    +------------->        |   |
+|   | |   |    +     |    |    |                      |   |
+|   | |   |    |     |    |    |                      |   |
+|   +-+---+----+-----+----+    +----------------------+   |
+|                                                         |
++---------------------------------------------------------+
+```
+
+webpack.config.js  
+
+```js
+module.exports = {
+  entry: './index.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react']
+          }
+        }
+      },
+    ]
+  }
+};
+```  
+
+index.js
+
+```js
+import React from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+
+import './app.css';
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <header>
+          <ul>
+            <li><Link to="/app">Dashboard</Link></li>
+            <li><Link to="/inbox">Inbox</Link></li>
+            <li><Link to="/calendar">Calendar</Link></li>
+          </ul>
+          Logged in as Jane
+        </header>
+        <main>
+          <Switch>
+            <Route exact path="/" component={Dashboard}/>
+            <Route path="/app" component={Dashboard}/>
+            <Route path="/inbox" component={Inbox}/>
+            <Route path="/calendar" component={Calendar}/>
+            <Route path="*" component={Dashboard}/>
+          </Switch>
+        </main>
+      </div>
+    );
+  }
+};
+
+class Dashboard extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Dashboard</p>
+      </div>
+    );
+  }
+};
+
+class Inbox extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Inbox</p>
+      </div>
+    );
+  }
+};
+
+class Calendar extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Calendar</p>
+      </div>
+    );
+  }
+};
+
+render((
+  <BrowserRouter>
+    <Route path="/" component={App} />
+  </BrowserRouter>
+), document.querySelector('#app'));
+```  
+
+index.html  
+
+```html
+<html>
+  <body>
+    <div id="app"></div>
+    <script src="/bundle.js"></script>
+  </body>
+</htmL>
+```  
+
+启动服务  
+
+```bash
+#
+$ cd demo15
+$ npm run dev
+```  
+
+## 参考链接  
+
+- [Webpack docs](https://webpack.js.org/concepts/)  
+- [webpack-howto](https://github.com/petehunt/webpack-howto), by Pete Hunt  
+- [SurviveJS Webpack book](https://survivejs.com/webpack/introduction/), by Juho Vepsäläinen  
+- [Diving into Webpack](https://web-design-weekly.com/2014/09/24/diving-webpack/), by Web Design Weekly  
+- [Webpack and React is awesome](http://www.christianalfoni.com/articles/2014_12_13_Webpack-and-react-is-awesome), by Christian Alfoni  
+- [Browserify vs Webpack](https://medium.com/@housecor/browserify-vs-webpack-b3d7ca08a0a9), by Cory House  
+
+## 许可  
+
+MIT  
+
+## 翻译后记  
+
+语言是比较简单的，但是代码很多没有接触过，仓促之间学习前端还是有很多坑没有遇到过的。怎么才能理解别人呢，怎么才能被别人理解呢，翻译如果只是为了给自己看，那翻译又有什么意义呢？  
