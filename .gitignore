@@ -64,3 +64,6 @@ dkms.conf
 .idea/workspace.xml
 js/pastefile.html
 js/pastefile.html
+.idea/misc.xml
+.idea/toys.iml
+.idea/modules.xml
