@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>worker测试</title>
+</head>
+<body>
+
+<p>原文自博客园：<a href="https://www.cnblogs.com/penghuwan/p/11546407.html">《前端黑魔法：webworker动态化，无需JS文件创建worker》</a></p>
+
+</body>
+<script>
+    // onmessage 是响应消息哒
+    function task() {
+        onmessage = ({data: {message}}) => {
+            console.log(`I am worker,received:${message}`);
+            postMessage({result: `message from worker`})
+        }
+    }
+
+    const runWorker = func => {
+        const worker = new Worker(
+            URL.createObjectURL(new Blob(
+                // 这里是解析成立即执行函数
+                [`(${func.toString()})()`]
+            ))
+        );
+
+        worker.onmessage = ({data: {result}}) => {
+            console.log(`I am main thread,received:${result}`);
+        }
+        worker.postMessage({message: `message from main thread`})
+    }
+
+    // const test = runWorker(task);
+
+    // =========改造，刚好学一波Promise和闭包
+
+    function newTask() {
+        onmessage = ({data: {jobId, message}}) => {
+            console.log(`I am worker,received:${message}`);
+            console.log(jobId);
+            postMessage({jobId, result: `message from worker`})
+        }
+    }
+
+    console.log(newTask.toString());
+    const makeWorker = func => {
+        let pendingJobs = {};
+
+        // 立即执行函数
+        const worker = new Worker(
+            URL.createObjectURL(new Blob(
+                // 这里是解析成立即执行函数
+                [`(${newTask.toString()})()`]
+            ))
+        );
+
+        // 主进程接收到消息
+        worker.onmessage = ({data: {result, jobId}}) => {
+            console.log(jobId);
+            console.log(result);
+            console.log(pendingJobs[jobId].toString());
+            // 这里其实是执行的resolve();
+            pendingJobs[jobId](result);
+            // 防止key 冲突
+            delete pendingJobs[jobId];
+        };
+
+        // 返回一个Promise 对象
+        return (...message) => {
+            return new Promise(resolve => {
+                const jobId = `${parseInt(Math.random() * 100)}`;
+                // 将resolve 绑定在pendingJobs
+                pendingJobs[jobId] = resolve;
+                worker.postMessage({jobId, message});
+            })
+        }
+    }
+
+    const test2 = makeWorker(newTask);
+
+    test2('message from main thread').then(message => {
+        // 这个匿名函数就是Promise 里面的resolve
+        console.log(`I am main thread,received:${message}`);
+    })
+</script>
+</html>
