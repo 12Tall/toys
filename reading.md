@@ -5,6 +5,7 @@
 - [c 语言实现正则表达式引擎](https://blog.csdn.net/weixin_36719607/article/details/79427220) 排版不好，但是有源码  
 - [权限系统与RBAC模型概述[绝对经典]](https://blog.csdn.net/yangwenxue_admin/article/details/73936803) 找不到原文了，只能找到这个。另外在博客园还有一篇类似的文章  
 - [可能是史上最全的权限系统设计](https://www.cnblogs.com/iceblow/p/11121362.html) 博客园  
+- [CPU 原理](http://www.gamezero.com/team-0/articles/math_magic/micro/index.html)
 
 ## 加油  
 
