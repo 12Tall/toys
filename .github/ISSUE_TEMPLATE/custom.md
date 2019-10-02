@@ -1,10 +1,8 @@
 ---
-name: Custom issue template
-about: Describe this issue template's purpose here.
-title: ''
+name: Magic Issues
+Descriptions: Describe this issue template's purpose here.
+Solutions: ''
 labels: ''
-assignees: ''
-
 ---
 
 
