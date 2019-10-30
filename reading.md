@@ -37,3 +37,7 @@
 - [ ] [canvas 教程](https://www.runoob.com/w3cnote/html5-canvas-intro.html) 菜鸟教程  
 - [ ] [从零开始搭建一个简单的基于webpack的vue开发环境](https://segmentfault.com/a/1190000012789253)  
 - [ ] [JS实现剪切板图片粘贴直接上传](https://www.deanhan.cn/js-paste-upload.html)
+
+## 加油哦  
+
+- [ ] [四则运算的后缀表示法](http://blog.51lucy.com/2019/08/19/stack_si_ze/)看起来很像lisp  
