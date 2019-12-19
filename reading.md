@@ -36,7 +36,8 @@
 - [ ] [canvas 绘图](http://blog.sina.com.cn/s/articlelist_5657730194_12_1.html)  
 - [ ] [canvas 教程](https://www.runoob.com/w3cnote/html5-canvas-intro.html) 菜鸟教程  
 - [ ] [从零开始搭建一个简单的基于webpack的vue开发环境](https://segmentfault.com/a/1190000012789253)  
-- [ ] [JS实现剪切板图片粘贴直接上传](https://www.deanhan.cn/js-paste-upload.html)
+- [ ] [JS实现剪切板图片粘贴直接上传](https://www.deanhan.cn/js-paste-upload.html)  
+- [ ] [vue 解析md](https://segmentfault.com/a/1190000021085117)  
 
 ## 加油哦  
 
