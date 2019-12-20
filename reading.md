@@ -5,7 +5,9 @@
 - [c 语言实现正则表达式引擎](https://blog.csdn.net/weixin_36719607/article/details/79427220) 排版不好，但是有源码  
 - [权限系统与RBAC模型概述[绝对经典]](https://blog.csdn.net/yangwenxue_admin/article/details/73936803) 找不到原文了，只能找到这个。另外在博客园还有一篇类似的文章  
 - [可能是史上最全的权限系统设计](https://www.cnblogs.com/iceblow/p/11121362.html) 博客园  
-- [CPU 原理](http://www.gamezero.com/team-0/articles/math_magic/micro/index.html)
+- [CPU 原理](http://www.gamezero.com/team-0/articles/math_magic/micro/index.html)  
+- [词法分析器（分析C语言）](https://blog.csdn.net/Naux1/article/details/78196465)  
+- [简单的C语言编译器--词法分析器](https://www.cnblogs.com/vachester/p/6884345.html)
 
 ## 加油  
 
@@ -42,4 +44,4 @@
 ## 加油哦  
 
 - [ ] [四则运算的后缀表示法](http://blog.51lucy.com/2019/08/19/stack_si_ze/)看起来很像lisp  
-- [ ] [微软开发文档](https://docs.microsoft.com/en-us/windows/dev-environment/)
+- [ ] [微软开发文档](https://docs.microsoft.com/en-us/windows/dev-environment/)  
