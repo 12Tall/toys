@@ -22,8 +22,10 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
+      webSecurity: false,
       nodeIntegration: true,
     },
+    // frame: false,
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
