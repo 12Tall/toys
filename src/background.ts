@@ -1,6 +1,6 @@
 'use strict';
 
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain } from 'electron';
 import {
   createProtocol,
   /* installVueDevtools */
@@ -25,7 +25,7 @@ function createWindow() {
       webSecurity: false,
       nodeIntegration: true,
     },
-    // frame: false,
+    frame: false,
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -96,6 +96,24 @@ if (isDevelopment) {
     });
   }
 }
+
+ipcMain.on('menu', (event, arg) => {
+  if (win) {
+    switch (arg) {
+      case 0:
+        app.quit();
+        break;
+      case 1:
+        win.isMaximized() ? win.restore() : win.maximize();
+        break;
+      case 2:
+        win.minimize();
+        break;
+      default:
+        break;
+    }
+  }
+});
 
 import sqlite3 from 'sqlite3';
 
