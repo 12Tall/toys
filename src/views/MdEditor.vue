@@ -2,8 +2,8 @@
   <el-container>
     <Index></Index>
     <el-main>
-      <textarea v-model="plain"></textarea>
-      <div id="previewer" contenteditable="true" v-html="T"></div>
+      <textarea v-model="plain" v-on:scroll="EditorScroll"></textarea>
+      <div id="previewer" v-html="T"></div>
     </el-main>
   </el-container>
 </template>
@@ -32,6 +32,17 @@ export default {
   computed: {
     T() {
       return md.render(this.plain);
+    },
+  },
+  methods: {
+    EditorScroll(e) {
+      var editor = document.querySelector('textarea');
+      var previewer = document.querySelector('#previewer');
+      console.log(editor.scrollHeight / previewer.scrollHeight);
+      let scale =
+        (editor.scrollHeight - editor.clientHeight) /
+        (previewer.scrollHeight - previewer.clientHeight);
+      previewer.scrollTop = editor.scrollTop / scale;
     },
   },
   components: {
@@ -66,6 +77,7 @@ export default {
         margin: 0;
         text-align: left;
         flex-grow: 1;
+        overflow-y: scroll;
       }
     }
   }
