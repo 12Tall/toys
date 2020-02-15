@@ -3,7 +3,7 @@
     <Index></Index>
     <el-main>
       <textarea v-model="plain"></textarea>
-      <div id="previewer" v-html="T"></div>
+      <div id="previewer" contenteditable="true" v-html="T"></div>
     </el-main>
   </el-container>
 </template>
@@ -14,9 +14,12 @@ import Index from '@/components/MdEditor/Index';
 import 'markdown-it-highlight/dist/index.css';
 
 import MarkdownIt from 'markdown-it';
-import { default as highlight } from 'markdown-it-highlight';
+import { default as ml } from 'markdown-it-highlight';
+import { default as mk } from 'markdown-it-latex';
+import 'markdown-it-latex/dist/index.css';
 const md = new MarkdownIt();
-md.use(highlight);
+md.use(mk);
+md.use(ml);
 
 export default {
   name: 'Home',
