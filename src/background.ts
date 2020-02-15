@@ -1,6 +1,12 @@
 'use strict';
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron';
+import {
+  app,
+  protocol,
+  BrowserWindow,
+  ipcMain,
+  globalShortcut,
+} from 'electron';
 import {
   createProtocol,
   /* installVueDevtools */
@@ -34,6 +40,11 @@ function createWindow() {
     if (!process.env.IS_TEST) {
       win.webContents.openDevTools();
     }
+    globalShortcut.register('CommandOrControl+F12', () => {
+      if (win) {
+        win.webContents.openDevTools();
+      }
+    });
   } else {
     createProtocol('app');
     // Load the index.html when not in development
